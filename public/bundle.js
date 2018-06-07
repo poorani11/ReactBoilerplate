@@ -24931,23 +24931,23 @@
 	var Weather = React.createClass({
 	    displayName: 'Weather',
 
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            city: 'NewYork'
-	        };
-	    },
 	    getInitialState: function getInitialState() {
 	        return {
-	            city: this.props.city
+	            location: 'Miami',
+	            temp: 88
 	        };
 	    },
-	    handleNewCity: function handleNewCity(city) {
+	    handleNewLocation: function handleNewLocation(location) {
 	        this.setState({
-	            city: city
+	            location: location,
+	            temp: 23
 	        });
 	    },
 	    render: function render() {
-	        var city = this.state.city;
+	        var _state = this.state,
+	            temp = _state.temp,
+	            location = _state.location;
+
 	        return React.createElement(
 	            'div',
 	            null,
@@ -24956,8 +24956,8 @@
 	                null,
 	                'Get Weather'
 	            ),
-	            React.createElement(WeatherForm, { onNewCity: this.handleNewCity }),
-	            React.createElement(WeatherMessage, { city: city })
+	            React.createElement(WeatherForm, { onNewLocation: this.handleNewLocation }),
+	            React.createElement(WeatherMessage, { location: location, temp: temp })
 	        );
 	    }
 	});
@@ -24976,15 +24976,20 @@
 	    displayName: 'WeatherMessage',
 
 	    render: function render() {
-	        var city = this.props.city;
+	        var _props = this.props,
+	            temp = _props.temp,
+	            location = _props.location;
+
 	        return React.createElement(
 	            'div',
 	            null,
 	            React.createElement(
-	                'h1',
+	                'h3',
 	                null,
-	                'The city is ',
-	                city,
+	                'The temp is ',
+	                temp,
+	                ' in ',
+	                location,
 	                '!'
 	            )
 	        );
@@ -25007,11 +25012,11 @@
 	    onFormSubmit: function onFormSubmit(e) {
 	        e.preventDefault();
 
-	        var city = this.refs.city.value;
+	        var location = this.refs.location.value;
 
-	        if (city.length > 0) {
-	            this.refs.city.value = '';
-	            this.props.onNewCity(city);
+	        if (location.length > 0) {
+	            this.refs.location.value = '';
+	            this.props.onNewLocation(location);
 	        }
 	    },
 	    render: function render() {
@@ -25021,12 +25026,12 @@
 	            React.createElement(
 	                'div',
 	                null,
-	                React.createElement('input', { type: 'text', ref: 'city', placeholder: 'Enter City' })
+	                React.createElement('input', { type: 'text', ref: 'location', placeholder: 'Enter Location' })
 	            ),
 	            React.createElement(
 	                'button',
 	                null,
-	                'Submit'
+	                'Get Weather'
 	            )
 	        );
 	    }
