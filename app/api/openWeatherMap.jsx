@@ -15,7 +15,7 @@ module.exports = {
            }
 
          }, function(res){
-           throw new Error(res.data.message);
+           throw new Error("Unable to fetch data for that location");
          });
     }
 }
